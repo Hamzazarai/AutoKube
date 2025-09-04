@@ -858,6 +858,32 @@ const AutoKube = () => {
       NFS must be enabled in order to deploy JupyterHub.
     </p>
   )}
+
+  {/* Boutons Grafana / Prometheus / Harbor visibles seulement si Harbor est activé */}
+  {formData.enable_harbor && (
+        <>
+          <button
+            onClick={() => window.open(`http://${formData.vm_ips["worker-1"]}:32001`, "_blank")}
+            className="w-full py-2 px-4 rounded-lg font-medium bg-red-500 hover:bg-red-600 text-white transition-all duration-200"
+          >
+            Open Grafana
+          </button>
+
+          <button
+            onClick={() => window.open(`http://${formData.vm_ips["worker-1"]}:32002`, "_blank")}
+            className="w-full py-2 px-4 rounded-lg font-medium bg-red-500 hover:bg-red-600 text-white transition-all duration-200"
+          >
+            Open Prometheus
+          </button>
+
+          <button
+            onClick={() => window.open(`http://${formData.harbor_ip}`, "_blank")}
+            className="w-full py-2 px-4 rounded-lg font-medium bg-red-500 hover:bg-red-600 text-white transition-all duration-200"
+          >
+            Open Harbor
+          </button>
+        </>
+      )}
 </div>
 		</div>
 	</div>
@@ -988,6 +1014,8 @@ const AutoKube = () => {
                 </div>
               </div>
             )}
+
+            
 
             {/* Deployment Logs */}
             {(isDeploying || deploymentLogs.length > 0) && (
