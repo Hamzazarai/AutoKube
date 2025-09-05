@@ -7,17 +7,21 @@ proxy:
       https: 32443
 
 singleuser:
-  cpu:
-    limit: 1
-    guarantee: 0.5
-  memory:
-    limit: 2G
-    guarantee: 1G
   storage:
     type: "static"
     static:
       pvcName: "nfs-share-pvc"
-      subPath: 'home/{username}'
+      subPath: 'users/{username}'  # correspond au répertoire NFS parent
+  extraVolumes:
+    - name: nfs-home
+      persistentVolumeClaim:
+        claimName: nfs-share-pvc
+  extraVolumeMounts:
+    - name: nfs-home
+      mountPath: /home/jovyan
+      subPath: 'users/{username}'
+  fsGroup: 1000       # UID/GID de jovyan
+  runAsUser: 1000     # pour que le container puisse écrire dans le PV
   image:
     name: jupyter/minimal-notebook
     tag: latest

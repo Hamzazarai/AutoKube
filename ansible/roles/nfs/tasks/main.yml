@@ -27,11 +27,23 @@
     owner: nobody
     group: nogroup
 
+- name: Create base directory for user homes
+  file:
+    path: /srv/nfs/kubedata/users
+    state: directory
+    mode: '0777'
+    owner: nobody
+    group: nogroup
+
+
 - name: Configure NFS exports
   copy:
     dest: /etc/exports
     content: |
-      /srv/nfs/kubedata *(rw,sync,no_subtree_check,no_root_squash)
+      /srv/nfs/kubedata/share *(rw,sync,no_subtree_check,no_root_squash)
+      /srv/nfs/kubedata/hub-db-dir *(rw,sync,no_subtree_check,no_root_squash)
+      /srv/nfs/kubedata/users *(rw,sync,no_subtree_check,no_root_squash)
+
 
 - name: Export the shared directories
   command: exportfs -rav
