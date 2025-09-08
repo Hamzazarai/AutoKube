@@ -74,4 +74,4 @@
       {
         "insecure-registries": ["{{ harbor_host }}"]
       }
-  notify: Restart Docker
+  # notify: Restart Docker

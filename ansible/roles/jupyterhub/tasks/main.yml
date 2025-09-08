@@ -24,16 +24,6 @@
   command: kubectl apply -f /tmp/pv-nfs.yaml --kubeconfig /etc/kubernetes/admin.conf
   when: pv_file is succeeded
 
-- name: Apply PersistentVolume for hub-db NFS
-  template:
-    src: templates/hub-db-pv.yaml
-    dest: /tmp/pv-hub-db-nfs.yaml
-  register: pv_file
-
-- name: Create PersistentVolume for hub-db 
-  command: kubectl apply -f /tmp/pv-hub-db-nfs.yaml --kubeconfig /etc/kubernetes/admin.conf
-  when: pv_file is succeeded
-
 
 - name: Apply PersistentVolumeClaim for NFS
   template:
@@ -45,8 +35,15 @@
   command: kubectl apply -f /tmp/pvc-nfs.yaml --kubeconfig /etc/kubernetes/admin.conf
   when: pvc_file is succeeded
 
+# - name: Apply PersistentVolumeClaim for hub-db
+#   template:
+#     src: templates/hub-db-pvc.yml
+#     dest: /tmp/pvc-hub-db.yaml
+#   register: pvc_hub_file
 
-
+# - name: Create PersistentVolumeClaim for hub-db
+#   command: kubectl apply -f /tmp/pvc-hub-db.yaml --kubeconfig /etc/kubernetes/admin.conf
+#   when: pvc_hub_file is succeeded
 
 - name: Copy values.yml to master node
   copy:
@@ -64,3 +61,12 @@
   args:
     chdir: /tmp
 
+- name: Apply PersistentVolume for hub-db NFS
+  template:
+    src: templates/hub-db-pv.yaml
+    dest: /tmp/pv-hub-db-nfs.yaml
+  register: pv_file
+
+- name: Create PersistentVolume for hub-db 
+  command: kubectl apply -f /tmp/pv-hub-db-nfs.yaml --kubeconfig /etc/kubernetes/admin.conf
+  when: pv_file is succeeded

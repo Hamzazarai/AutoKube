@@ -11,17 +11,8 @@ singleuser:
     type: "static"
     static:
       pvcName: "nfs-share-pvc"
-      subPath: 'users/{username}'  # correspond au répertoire NFS parent
-  extraVolumes:
-    - name: nfs-home
-      persistentVolumeClaim:
-        claimName: nfs-share-pvc
-  extraVolumeMounts:
-    - name: nfs-home
-      mountPath: /home/jovyan
-      subPath: 'users/{username}'
-  fsGroup: 1000       # UID/GID de jovyan
-  runAsUser: 1000     # pour que le container puisse écrire dans le PV
+      subPath: "users/{username}"
+
   image:
     name: jupyter/minimal-notebook
     tag: latest
@@ -30,7 +21,7 @@ singleuser:
       description: "Environnement de base avec Python uniquement."
       default: true
       kubespawner_override:
-        image: jupyter/minimal-notebook:latest
+        image: jupyterhub/k8s-singleuser-sample:4.2.0
         cpu_limit: 1
         cpu_guarantee: 0.5
         mem_limit: 1G

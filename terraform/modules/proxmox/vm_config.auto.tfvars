@@ -1,4 +1,4 @@
-zone_name = "test"
+zone_name = "fss"
 provider_type = "proxmox"
 
 provider_credentials = {
@@ -13,10 +13,10 @@ proxmox_node = "proxmox"
 base_template = "ubuntu-template"
 storage_pool = "local-lvm"
 internal_bridge = "vmbr0"
-external_bridge = "vmbr0"
+external_bridge = "vmbr1"
 
 master_count = 3
-master_cpu = 3
+master_cpu = 4
 master_ram = 4096
 master_disk = "50G"
 
@@ -29,7 +29,7 @@ haproxy_cpu = 2
 haproxy_ram = 4096
 haproxy_disk = "50G"
 
-nfs_cpu = 2
+nfs_cpu = 1
 nfs_ram = 8192
 nfs_disk = "100G"
 
@@ -38,7 +38,7 @@ harbor_ram = 8192
 harbor_disk = "50G"
 
 cloud_init_user = "ubuntu"
-cloud_init_password = "123"
+cloud_init_password = "ubuntu123"
 
 enable_haproxy = true
 enable_nfs = true

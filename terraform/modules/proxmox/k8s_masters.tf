@@ -38,12 +38,6 @@ resource "proxmox_vm_qemu" "k8s_masters" {
     bridge = "vmbr0"
   }
 
-  network {
-    id     = 1
-    model  = "virtio"
-    bridge = "vmbr1"
-  }
-
   scsihw     = "virtio-scsi-single"
   boot       = "c"
   ciuser     = var.cloud_init_user

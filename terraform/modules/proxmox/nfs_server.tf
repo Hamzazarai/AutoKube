@@ -34,12 +34,6 @@ resource "proxmox_vm_qemu" "nfs_server" {
     bridge = "vmbr0"
   }
 
-  network {
-    id     = 1
-    model  = "virtio"
-    bridge = "vmbr1"
-  }
-
   scsihw     = "virtio-scsi-single"
   boot       = "c"
   ciuser     = var.cloud_init_user

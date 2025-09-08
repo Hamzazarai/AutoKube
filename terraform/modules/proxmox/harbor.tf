@@ -33,12 +33,6 @@ resource "proxmox_vm_qemu" "harbor" {
     model  = "virtio"
     bridge = "vmbr0"
   }
-  
-  network {
-    id     = 1
-    model  = "virtio"
-    bridge = "vmbr1"
-  }
 
   scsihw     = "virtio-scsi-single"
   boot       = "c"
